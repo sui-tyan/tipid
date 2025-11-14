@@ -20,10 +20,10 @@ import Goal from "@/components/dashboard/Goal";
 
 export default function Dashboard() {
   const chartData = [
-    { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
-    { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-    { browser: "firefox", visitors: 187, fill: "var(--color-firefox)" },
-    { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
+    { browser: "food", visitors: 275, fill: "var(--color-food)" },
+    { browser: "travel", visitors: 200, fill: "var(--color-travel)" },
+    { browser: "guitar", visitors: 187, fill: "var(--color-guitar)" },
+    { browser: "transaction_fees", visitors: 173, fill: "var(--color-transaction_fees)" },
     { browser: "other", visitors: 90, fill: "var(--color-other)" },
   ];
 
@@ -31,20 +31,20 @@ export default function Dashboard() {
     visitors: {
       label: "Visitors",
     },
-    chrome: {
-      label: "Chrome",
+    food: {
+      label: "Food",
       color: "var(--chart-1)",
     },
-    safari: {
-      label: "Safari",
+    travel: {
+      label: "Travel",
       color: "var(--chart-2)",
     },
-    firefox: {
-      label: "Firefox",
+    guitar: {
+      label: "Guitar",
       color: "var(--chart-3)",
     },
-    edge: {
-      label: "Edge",
+    transaction_fees: {
+      label: "Transaction Fees",
       color: "var(--chart-4)",
     },
     other: {
