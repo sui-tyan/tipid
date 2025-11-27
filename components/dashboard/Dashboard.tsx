@@ -1,3 +1,5 @@
+"use client";
+
 import { ChartAreaInteractive } from "@/components/chart-area-interactive";
 import { SectionCards } from "@/components/section-cards";
 import {
@@ -17,43 +19,23 @@ import {
 import { Bar, BarChart, Pie, PieChart } from "recharts";
 import { TrendingUp } from "lucide-react";
 import Goal from "@/components/dashboard/Goal";
+import {  ExpenseChartData } from '../../lib/types/Expense';
+import { Cashflow } from "@/lib/types/Cashflow";
+import { GoalData } from "@/lib/types/Goal";
 
-export default function Dashboard() {
-  const chartData = [
-    { browser: "food", visitors: 275, fill: "var(--color-food)" },
-    { browser: "travel", visitors: 200, fill: "var(--color-travel)" },
-    { browser: "guitar", visitors: 187, fill: "var(--color-guitar)" },
-    { browser: "transaction_fees", visitors: 173, fill: "var(--color-transaction_fees)" },
-    { browser: "other", visitors: 90, fill: "var(--color-other)" },
-  ];
+export default function Dashboard({recentExpenses, recentCashflow, goalProgress}:{recentExpenses: ExpenseChartData[], recentCashflow: Cashflow[], goalProgress: GoalData[]}) {
 
-  const chartConfig = {
-    visitors: {
-      label: "Visitors",
-    },
-    food: {
-      label: "Food",
-      color: "var(--chart-1)",
-    },
-    travel: {
-      label: "Travel",
-      color: "var(--chart-2)",
-    },
-    guitar: {
-      label: "Guitar",
-      color: "var(--chart-3)",
-    },
-    transaction_fees: {
-      label: "Transaction Fees",
-      color: "var(--chart-4)",
-    },
-    other: {
-      label: "Other",
-      color: "var(--chart-5)",
-    },
-  } satisfies ChartConfig;
+  const chartData = recentExpenses
 
-  const cashFlowChartData = [{ inflow: 18650.0, outflow: 9650 }];
+  const chartConfig = Object.fromEntries(
+    chartData.map((item) => {
+      const key = item.expenseLabel.toLowerCase().replaceAll(" ", "_")
+      const value = {label: item.expenseLabel}
+      return [key, value]
+    })
+  ) satisfies ChartConfig;
+
+  const cashFlowChartData = [recentCashflow];
 
   const cashFlowChartConfig = {
     inflow: {
@@ -90,8 +72,8 @@ export default function Dashboard() {
                       />
                       <Pie
                         data={chartData}
-                        dataKey="visitors"
-                        nameKey="browser"
+                        dataKey="expenseValue"
+                        nameKey="expenseLabel"
                         innerRadius={60}
                       />
                     </PieChart>
@@ -145,7 +127,7 @@ export default function Dashboard() {
                   </div>
                 </CardFooter>
               </Card>
-              <Goal />
+              <Goal goalProgress={goalProgress} />
             </div>
           </div>
           <div className="px-4 lg:px-6">

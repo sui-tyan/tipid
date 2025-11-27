@@ -14,24 +14,12 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "../ui/chart";
+import { GoalData } from "@/lib/types/Goal";
 
-export default function GoalChart() {
-  const angleRange = 180;
-  const startAngle = 180;
-  const endAngle = 0;
+export default function GoalChart({goalProgress}: {goalProgress: GoalData[]}) {
 
-  const goalChartData = [
-    {
-      type: "current",
-      value: 19465.6,
-      fill: "var(--color-green-500)",
-    },
-    {
-      type: "goal",
-      value: 100000 - 19465.6,
-      fill: "var(--color-gray-300)",
-    },
-  ];
+
+  const goalChartData = goalProgress
 
   const goalChartConfig = {
     current: {
